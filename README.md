@@ -1,4 +1,3 @@
-## End to end Machine Learning Project
 
 # ML Project: Student Score Prediction
 
