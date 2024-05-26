@@ -20,12 +20,6 @@ class CustomException(Exception):
     def __str__(self):
         return self.error_message
 
-if __name__=="__main__":
-    try:
-        a=2/0
-    except Exception as e:
-        logging.info("Division by 0 ")
-        logging.info("Division by 1")
-        raise CustomException(e,sys)
+
     
 
