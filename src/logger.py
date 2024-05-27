@@ -13,5 +13,5 @@ print(LOG_FILE_PATH+" LOGSFILEPATH")
 logging.basicConfig(
     filename=LOG_FILE_PATH,
     format="[%(asctime)s] %(lineno)s %(name)s - %(levelname)s - %(message)s",
-    level=logging.INFO
+    level=logging.DEBUG
 )

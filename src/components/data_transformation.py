@@ -11,7 +11,10 @@ from sklearn.pipeline import Pipeline
 from src.exception import CustomException
 from src.logger import logging
 from src.components.data_ingestion import DataIngestion
+from src.components.model_trainer import ModelTrainer
 from src.utils import save_object
+
+log=logging.getLogger(__name__)
 
 @dataclass
 class DataTransformationConfig:
@@ -23,16 +26,14 @@ class DataTransformation:
     
     def initiate_data_transformation(self,train_path,test_path):
         try:
-            logging.info("Data Transformation Started.")
+            log.info("Data Transformation Started.")
             train_df=pd.read_csv(train_path)
             test_df=pd.read_csv(test_path)
-            logging.info("Read Train and Test Data Completed in Transformation.")
-            logging.info("Obtaining Preprocessor object")
+            log.info("Read Train and Test Data Completed in Transformation.")
+            log.info("Obtaining Preprocessor object")
             pre_obj=self.get_data_transformer_object()
 
             target_col_name="math score"
-
-            print(train_df.head())
 
             target_feature_train_df=train_df[target_col_name]
             input_feature_train_df=train_df.drop(columns=[target_col_name],axis=1)
@@ -40,10 +41,9 @@ class DataTransformation:
             target_feature_test_df=test_df[target_col_name]
             input_feature_test_df=test_df.drop(columns=[target_col_name],axis=1)
 
-            logging.info(
+            log.info(
                 f"Applying preprocessing object on training dataframe and testing dataframe."
             )
-            print(input_feature_train_df.columns)
 
 
             input_feature_train_arr = pre_obj.fit_transform(input_feature_train_df)
@@ -56,7 +56,9 @@ class DataTransformation:
                 input_feature_test_arr, np.array(target_feature_test_df)
             ]
 
-            logging.info(f"Saved preprocessing object.")
+            print(train_arr)
+
+            log.info(f"Saved preprocessing object.")
 
             save_object(
                 file_path=self.data_transformation_config.preprocessor_obj_file_path,
@@ -103,9 +105,9 @@ class DataTransformation:
                  ]
              )
 
-             logging.info(f"Numerical Columns {num_columns}")
+             log.debug(f"Numerical Columns {num_columns}")
 
-             logging.info(f"Categorical Columns {cat_columns}")
+             log.debug(f"Categorical Columns {cat_columns}")
 
              preprocessor=ColumnTransformer([
                  ("num_pipeline",num_pipeline,num_columns),
@@ -122,5 +124,10 @@ if __name__=="__main__":
     train_path,test_path=obj.initiate_data_ingestion()
 
     data_transformation= DataTransformation()
-    data_transformation.initiate_data_transformation(train_path=train_path,test_path=test_path)
+    train_ar,test_ar ,_=data_transformation.initiate_data_transformation(train_path=train_path,test_path=test_path)
+
+    model_trainer=ModelTrainer()
+    score=model_trainer.initiate_model_trainer(train_arr=train_ar,test_arr=test_ar)
+    print(score)
+
             
