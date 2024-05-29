@@ -10,6 +10,15 @@ from src.logger import logging
 log=logging.getLogger(__name__)
 
 
+def load_object(file_path):
+    try:
+        with open(file_path, 'rb') as file:
+            preprocessor = dill.load(file)
+        return preprocessor
+    except Exception as e:
+        raise CustomException(e,sys)
+
+
 def save_object(file_path, pre_obj):
     try:
         dir_path=os.path.dirname(file_path)

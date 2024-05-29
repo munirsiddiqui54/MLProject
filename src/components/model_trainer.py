@@ -58,7 +58,6 @@ class ModelTrainer:
                 list(model_report.values()).index(best_score)
             ]
 
-
             if best_score<0.6:
                 raise CustomException("No Best Model Found")
             
