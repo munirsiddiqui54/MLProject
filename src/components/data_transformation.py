@@ -10,8 +10,6 @@ from sklearn.pipeline import Pipeline
 
 from src.exception import CustomException
 from src.logger import logging
-from src.components.data_ingestion import DataIngestion
-from src.components.model_trainer import ModelTrainer
 from src.utils import save_object
 
 log=logging.getLogger(__name__)
@@ -121,16 +119,6 @@ class DataTransformation:
 
         except Exception as e:
             raise CustomException(e,sys)
-        
-if __name__=="__main__":
-    obj =DataIngestion()
-    train_path,test_path=obj.initiate_data_ingestion()
 
-    data_transformation= DataTransformation()
-    train_ar,test_ar ,_=data_transformation.initiate_data_transformation(train_path=train_path,test_path=test_path)
-
-    model_trainer=ModelTrainer()
-    score=model_trainer.initiate_model_trainer(train_arr=train_ar,test_arr=test_ar)
-    print(score)
 
             

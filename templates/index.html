@@ -6,7 +6,12 @@
     <title>Students Marks</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+          .chart-container {
+            width: 80%;
+            margin: 0 auto;
+        }
         body, html {
             height: 100%;
             margin: 0;
@@ -14,20 +19,24 @@
         }
         .container {
             display: flex;
-            height: fit-content;
+            overflow: hidden;
+            height: 100vh;
             flex-wrap: wrap; /* Allow items to wrap to the next line */
         }
         .left, .right {
             flex: 1;
-            height: 100%;
         }
         /* Adjust styles for left and right sections as needed */
         .left {
             background-color: #f3f3f3;
             padding: 20px;
+            height: 100vh;
+            overflow-y: scroll;
         }
         .right {
             background-color: #ccc;
+            height: 100vh;
+            overflow-y: scroll;
         }
         /* Media query for mobile screens */
         @media screen and (max-width: 768px) {
@@ -36,6 +45,7 @@
             }
             .left, .right {
                 width: 100%; /* Take full width */
+                height: fit-content;
             }
         }
 
@@ -80,6 +90,7 @@
 
 .prediction h2 {
     margin: 0;
+    text-align: start;
     color: #007BFF;
 }
 
@@ -90,25 +101,29 @@
         <div class="left">
             <!-- Content for the left section -->
             <div class="about-section">
-                <h2>About Project</h2>
-                <p>Project Overview: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus justo et malesuada congue.</p>
+                <h1>About Project</h1>
+                <p>Project Overview: This project is an end-to-end data science application aimed at predicting students' scores based on various demographic and educational features. The project leverages machine learning techniques and follows industry best practices, including structured folder organization, custom loggers, exception handling, and a CI/CD pipeline.</p>
                 <p>Tech Stack: <i class="fab fa-python"></i> scikit-learn, <i class="fab fa-css3"></i> CSS, <i class="fab fa-html5"></i> HTML</p>
                 <a href="https://github.com/munirsiddiqui54/MLProject" target="_blank" class="github-btn"><i class="fab fa-github"></i> View on GitHub</a>
-
+                <div class="chart-container">
+                    <canvas id="myChart"></canvas>
+                </div>
                 <div class="left-container">
-                    <h1>Installation and Usage</h1>
+                    <h1>Installation</h1>
                     <div class="step">
                         <h2>1. Clone the repository:</h2>
                         <div class="code-block">
-                            <code>git clone https://github.com/yourusername/MLProject.git</code><br>
+                            <code>git clone https://github.com/munirsiddiqui54/MLProject.git</code><br>
                             <code>cd MLProject</code>
                         </div>
                     </div>
+                    
+                
                     <div class="step">
                         <h2>2. Create and activate a virtual environment:</h2>
                         <div class="code-block">
-                            <code>python -m venv venv</code><br>
-                            <code>source venv/bin/activate # On Windows use venv\Scripts\activate</code>
+                            <code>conda create -n venv python=3.7 </code><br>
+                            <code>conda activate venv</code>
                         </div>
                     </div>
                     <div class="step">
@@ -118,9 +133,9 @@
                         </div>
                     </div>
                     <div class="step">
-                        <h2>4. Run the data ingestion script:</h2>
+                        <h2>4. Run the Model Trainer Script:</h2>
                         <div class="code-block">
-                            <code>python src/components/data_ingestion.py</code>
+                            <code>python src/components/model_trainer.py</code>
                         </div>
                     </div>
                 </div>
@@ -194,11 +209,74 @@
             <div class="prediction">
                 <h2>Prediction:</h2>
                 <p>Your predicted math score is: <strong>{{ prediction }}/100</strong></p>
+                <p>( *The prediction is made using Linear Regression Model.) </p>
             </div>
             {% endif %}
     </div>
         </div>
     </div>
+    <script>
+        // Data for the chart stored in a dictionary
+        const dataDict = {
+            "RandomForest": 0.8547153629900446,
+            "DecisionTree": 0.7544366199498311,
+            "LinearRegression": 0.8778938096083478,
+            "GradientBoosting": 0.8731344797054658,
+            "K-NeighboursRegressor": 0.47561174068704326,
+            "XGBRegressor": 0.8206920892156877,
+            "AdaBoostRegressor": 0.8561216897745175
+        };
+
+        // Extract labels and data from the dictionary
+        const labels = Object.keys(dataDict);
+        const data = Object.values(dataDict);
+
+        // Find the highest and lowest values and their indices
+        const maxValue = Math.max(...data);
+        const minValue = Math.min(...data);
+        const maxIndex = data.indexOf(maxValue);
+        const minIndex = data.indexOf(minValue);
+
+        // Colors for the bars
+        const backgroundColors = data.map((value, index) => {
+            if (index === maxIndex) return 'rgba(5, 255, 55,0.4)'; // Green for max
+            if (index === minIndex) return 'rgba(154, 62, 35, 0.2)'; // Blue for min
+            return 'rgba(54, 162, 235, 0.2)'; // Blue for others
+        });
+        const borderColors = data.map((value, index) => {
+            if (index === maxIndex) return 'rgba(5, 255, 55,1)'; // Green for max
+            if (index === minIndex) return 'rgba(154, 62, 35, 1)'; // Blue for min
+            return 'rgba(54, 162, 235, 1)'; // Blue for others
+        });
+
+        // Config for the chart
+        const config = {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    labels:"",
+                    backgroundColor: backgroundColors,
+                    borderColor: borderColors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Render the chart
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+    </script>
 </body>
 </html>
 

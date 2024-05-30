@@ -2,6 +2,7 @@ import os
 import sys
 from dataclasses import dataclass
 
+import numpy as np
 from catboost import CatBoostRegressor
 from sklearn.ensemble import (
     AdaBoostRegressor,
@@ -17,6 +18,8 @@ from xgboost import XGBRegressor
 from src.exception import CustomException
 from src.logger import logging
 from src.utils import save_object,evaluate_model
+from src.components.data_ingestion import DataIngestion
+from src.components.data_transformation import DataTransformation
 
 log=logging.getLogger(__name__)
 
@@ -80,4 +83,17 @@ class ModelTrainer:
 
         except Exception as e:
             raise CustomException(e,sys)
+
+        
+if __name__=="__main__":
+    obj =DataIngestion()
+    train_path,test_path=obj.initiate_data_ingestion()
+
+    data_transformation= DataTransformation()
+    train_ar,test_ar ,_=data_transformation.initiate_data_transformation(train_path=train_path,test_path=test_path)
+
+    model_trainer=ModelTrainer()
+    score=model_trainer.initiate_model_trainer(train_arr=train_ar,test_arr=test_ar)
+    print(score)
+
 

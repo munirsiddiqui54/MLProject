@@ -7,7 +7,7 @@ log=logging.getLogger(__name__)
 def get_error_message(error,error_details_obj:sys):
     _,_,exc_tb=error_details_obj.exc_info()
     file_name=exc_tb.tb_frame.f_code.co_filename
-    error_msg="Error Occured. FILENAME: [{0}], LINE:{1}, ERROR: {2}.".format(
+    error_msg="Error Occured. FILENAME: [{0}], LINE:{1}, ERROR: {2}".format(
         file_name,
         exc_tb.tb_lineno,
         error
