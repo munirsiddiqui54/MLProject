@@ -99,3 +99,43 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+
+
+.left-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    border-bottom: 1px solid #444;
+    padding-bottom: 10px;
+}
+
+.step {
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.2em;
+    color: #FFFFFF;
+}
+
+.code-block {
+    background-color: #1E1E1E;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #444;
+}
+
+.code-block code {
+    display: block;
+    white-space: pre-wrap;
+    color: #9CDCFE;
+    margin: 5px 0;
+}
+
+code {
+    font-family: "Courier New", Courier, monospace;
+}
