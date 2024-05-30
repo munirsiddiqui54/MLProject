@@ -11,11 +11,23 @@ def getReq(path:str)->List[str]:
             reqList.remove(HYPHEN_E_DOT)
     return reqList
 
+
 setup(
-    name="ML Project",
+     name="ML Project",
     version="0.0.1",
     author="Munir Siddiqui",
     author_email="munir230204@gmail.com",
     packages=find_packages(),
-    install_requires=getReq("requirements.txt")
+    install_requires=[
+        'pandas',
+        'numpy',
+        'matplotlib',
+        'seaborn',
+        'xgboost',
+        'catboost',
+        'scikit-learn',
+        'dill',
+        'flask',
+        'gunicorn'
+    ],
 )
