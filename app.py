@@ -1,12 +1,16 @@
 from flask import Flask,request, render_template
 import numpy as np
 import pandas as pd
+from flask_cors import CORS
 
 from sklearn.preprocessing import StandardScaler
 from src.pipeline.predict_pipeline import predict
 application=Flask(__name__)
 
 app=application
+
+
+CORS(app)
 
 @app.route('/')
 def index():

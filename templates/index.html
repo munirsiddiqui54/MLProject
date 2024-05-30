@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Students Marks</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"> -->
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
     <style>
           .chart-container {
             width: 80%;
@@ -16,6 +17,9 @@
             height: 100%;
             margin: 0;
             padding: 0;
+        }
+        h1{
+            text-align: start;
         }
         .container {
             display: flex;
@@ -50,7 +54,14 @@
         }
 
         /* about section  */
-        
+        .f-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #3c3c3cd6;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
         /* About Project section styles */
         .about-section {
             margin-bottom: 20px;
@@ -102,12 +113,23 @@
             <!-- Content for the left section -->
             <div class="about-section">
                 <h1>About Project</h1>
-                <p>Project Overview: This project is an end-to-end data science application aimed at predicting students' scores based on various demographic and educational features. The project leverages machine learning techniques and follows industry best practices, including structured folder organization, custom loggers, exception handling, and a CI/CD pipeline.</p>
-                <p>Tech Stack: <i class="fab fa-python"></i> scikit-learn, <i class="fab fa-css3"></i> CSS, <i class="fab fa-html5"></i> HTML</p>
+                <p>Project Overview: This project is an end-to-end data science application aimed at predicting students' scores based on various demographic and educational features. The project leverages machine learning techniques and follows industry best practices, including structured folder organization, custom loggers and exception handling</p>
+                <!-- <p>Tech Stack: <i class="fab fa-python"></i> scikit-learn, <i class="fab fa-css3"></i> CSS, <i class="fab fa-html5"></i> HTML</p> -->
                 <a href="https://github.com/munirsiddiqui54/MLProject" target="_blank" class="github-btn"><i class="fab fa-github"></i> View on GitHub</a>
                 <div class="chart-container">
                     <canvas id="myChart"></canvas>
                 </div>
+                <div class="f-container">
+                <h1>Key Components</h1>
+                <ol>
+                    <li><b>Data Ingestion:</b> Loading and preprocessing raw data.</li>
+                    <li><b>Data Transformation:</b> Feature engineering and data transformation.</li>
+                    <li><b>Model Training:</b> Training machine learning models to predict student scores.</li>
+                    <li><b>Logging:</b> Custom logging to track the pipeline execution.</li>
+                    <li><b>Exception Handling:</b> Custom exceptions to handle errors gracefully.</li>
+                </ol>
+                
+            </div>
                 <div class="left-container">
                     <h1>Installation</h1>
                     <div class="step">
@@ -139,6 +161,19 @@
                         </div>
                     </div>
                 </div>
+
+            <div class="f-container">
+                <h1>Features</h1>
+                <ul>
+                    <li><b>Gender:</b> Sex of the students (Male/Female)</li>
+                    <li><b>Race/Ethnicity:</b> Ethnicity of the students (Group A, B, C, D, E)</li>
+                    <li><b>Parental Level of Education:</b> The highest level of education attained by the parents (bachelor's degree, some college, master's degree, associate's degree, high school)</li>
+                    <li><b>Lunch:</b> Type of lunch before the test (standard or free/reduced)</li>
+                    <li><b>Test Preparation Course:</b> Completion status of the test preparation course (complete or not complete)</li>
+                    <li><b>Reading Score:</b> Score in reading</li>
+                    <li><b>Writing Score:</b> Score in writing</li>
+                </ul>
+            </div>
             </div>
         </div>
         <div class="right">
