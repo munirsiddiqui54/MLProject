@@ -31,6 +31,5 @@ def submit():
     # Here, you can process the data or save it as needed
     return render_template('index.html',prediction=prediction)
 
-app.listen(3000)
 if __name__ == '__main__':
-    app.run(port=3000)
+    app.run()
