@@ -30,10 +30,10 @@ def submit():
         "writing score": [request.form['writing_score']]
     }
     # For now, just print the data
-    prediction= predict(data)
+    #prediction= predict(data)
     
     # Here, you can process the data or save it as needed
-    return render_template('index.html',prediction=prediction)
+    return render_template('index.html',prediction=56.7)
 
 if __name__ == '__main__':
     app.run()
