@@ -5,8 +5,12 @@ from flask_cors import CORS
 
 import sys
 from src.utils import load_object
+import pickle
 from src.exception import CustomException
 
+from src.components.data_ingestion import DataIngestion
+from src.components.data_transformation import DataTransformation
+from src.components.model_trainer import ModelTrainer
 from sklearn.preprocessing import StandardScaler
 # from src.pipeline.predict_pipeline import predict
 application=Flask(__name__)
@@ -14,10 +18,23 @@ application=Flask(__name__)
 app=application
 
 
+
+
+obj =DataIngestion()
+train_path,test_path=obj.initiate_data_ingestion()
+
+data_transformation= DataTransformation()
+train_ar,test_ar ,_=data_transformation.initiate_data_transformation(train_path=train_path,test_path=test_path)
+
+model_trainer=ModelTrainer()
+score=model_trainer.initiate_model_trainer(train_arr=train_ar,test_arr=test_ar)
+print(score)
+
 preprocessor_path="artifacts/preprocessor.pkl"
 model_path="artifacts/model.pkl"
 preprocessor=load_object(preprocessor_path)
 model=load_object(model_path)
+
 
 CORS(app)
 
@@ -33,8 +50,7 @@ def predict(data):
 
 
 
-        # log.info("Prediction Started...")
-        # log.info(f"DATA {data}")
+        print(df.info())
         scaled_data=preprocessor.transform(df)
         prediction=model.predict(scaled_data)
 
