@@ -148,7 +148,7 @@ ul, ol {
     margin-left: 20px;
 }
 
-.f-container li , .f-container h1,p{
+.f-container li , .f-container h1,.f-container p{
     margin-bottom: 10px;
     color: white;
 }
