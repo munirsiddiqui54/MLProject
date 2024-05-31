@@ -14,8 +14,8 @@ application=Flask(__name__)
 app=application
 
 
-preprocessor_path="artifacts\preprocessor.pkl"
-model_path="artifacts\model.pkl"
+preprocessor_path="artifacts/preprocessor.pkl"
+model_path="artifacts/model.pkl"
 preprocessor=load_object(preprocessor_path)
 model=load_object(model_path)
 
