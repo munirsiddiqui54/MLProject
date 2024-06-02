@@ -23,7 +23,7 @@ class DataIngestion:
         log.info("Data Ingestion is started.")
         try:
             # Read Data from somewhere
-            df=pd.read_csv('notebook\data\StudentsPerformance.csv')
+            df=pd.read_csv('notebook/data/StudentsPerformance.csv')
             log.info("Successfully read the Data-set in dataframe.")
 
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)

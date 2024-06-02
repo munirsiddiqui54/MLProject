@@ -19,6 +19,9 @@ def predict(data):
 
         log.info("Prediction Started...")
         log.info(f"DATA {data}")
+
+        print(df.info())
+
         scaled_data=preprocessor.transform(df)
         prediction=model.predict(scaled_data)
 

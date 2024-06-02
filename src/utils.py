@@ -7,7 +7,7 @@ import dill
 
 import pickle
 
-import joblib
+# import joblib
 
 from src.exception import CustomException
 from sklearn.metrics import r2_score
@@ -19,7 +19,7 @@ log=logging.getLogger(__name__)
 def load_object(file_path):
     try:
         with open(file_path, 'rb') as file:
-            preprocessor = joblib.load(file)
+            preprocessor = pickle.load(file)
         return preprocessor
     except Exception as e:
         raise CustomException(e,sys)
@@ -32,7 +32,7 @@ def save_object(file_path, pre_obj):
         os.makedirs(dir_path,exist_ok=True)
 
         with open(file_path,"wb") as file:
-            joblib.dump(pre_obj,file)
+            pickle.dump(pre_obj,file)
 
     except Exception as e:
         raise CustomException(e,sys)
